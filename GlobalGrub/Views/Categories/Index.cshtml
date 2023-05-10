@@ -1,14 +1,25 @@
-﻿<h1>Choose a Category</h1>
+﻿@model IEnumerable<GlobalGrub.Models.Category> // IEnumerable -> interface for any sort of collection that we can loop through
+<!-- here we have used IEnumerable<Model> where model refers to the data type the view from the controller -->
+
+<h1>Choose a Category</h1>
 
 <ul>
-    <li>
-        <!-- asp-route-category="Category 1", here "category" is the parameter matching the controler's parameter and "Category 1" is the value -->
-        <a asp-controller="Categories" asp-action="Browse" asp-route-category="Category 1">Category 1</a>
+    @*<li>
+    <!-- asp-route-category="Category 1", here "category" is the parameter matching the controler's parameter and "Category 1" is the value -->
+    <a asp-controller="Categories" asp-action="Browse" asp-route-category="Category 1">Category 1</a>
     </li>
     <li>
-        <a asp-controller="Categories" asp-action="Browse" asp-route-category="Category 2">Category 2</a>
+    <a asp-controller="Categories" asp-action="Browse" asp-route-category="Category 2">Category 2</a>
     </li>
     <li>
-        <a asp-controller="Categories" asp-action="Browse" asp-route-category="Category 3">Category 3</a>
-    </li>
+    <a asp-controller="Categories" asp-action="Browse" asp-route-category="Category 3">Category 3</a>
+    </li>*@
+
+    @foreach (var category in Model)
+    {
+        <li>
+            <a asp-controller="Categories" asp-action="Browse" asp-route-category="@category.Name">@category.Name</a>
+        </li>
+    }
+
 </ul>
