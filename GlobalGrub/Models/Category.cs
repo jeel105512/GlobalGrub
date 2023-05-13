@@ -13,5 +13,8 @@ namespace GlobalGrub.Models
 
         [Required(AllowEmptyStrings =  false, ErrorMessage = "And no empty string ther")]
         public string Name { get; set; }
+
+        // child reference
+        public List<Product> Products{ get; set; }
     }
 }
