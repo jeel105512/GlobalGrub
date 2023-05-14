@@ -59,6 +59,7 @@ namespace GlobalGrub.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name,Price,Weight,Photo,CategoryId")] Product product)
         {
+            ModelState.Clear();
             if (ModelState.IsValid)
             {
                 _context.Add(product);

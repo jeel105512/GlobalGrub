@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlobalGrub.Data;
 using GlobalGrub.Models;
+using System.Diagnostics;
 
 namespace GlobalGrub.Controllers
 {
@@ -58,12 +59,25 @@ namespace GlobalGrub.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,Name")] Category category)
         {
+            // required to work...............................................................................................
+            ModelState.Clear();
             if (ModelState.IsValid)
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
+                // Debug.WriteLine("Category cerated successfully");
                 return RedirectToAction(nameof(Index));
             }
+            /*if (!ModelState.IsValid)
+            {
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Any())
+                    .Select(x => new { x.Key, x.Value.Errors })
+                    .ToArray();
+                // Add a breakpoint here and inspect the errors array to see which fields failed validation
+            }*/
+
+            // Debug.WriteLine("Category creation failed");
             return View(category);
         }
 
@@ -90,6 +104,8 @@ namespace GlobalGrub.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name")] Category category)
         {
+            // required to work...............................................................................................
+            ModelState.Clear();
             if (id != category.CategoryId)
             {
                 return NotFound();
