@@ -12,6 +12,7 @@ namespace GlobalGrub.Models
 
         [Required]
         [Range(0.01, 9999999)]
+        [DisplayFormat(DataFormatString = "{0:c}")] // MS currency format
         public decimal Price { get; set; }
 
         [Required]
