@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GlobalGrub.Data;
 using GlobalGrub.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GlobalGrub.Controllers
 {
+    [Authorize] // make the whole controller privateto (need authentication to access)
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,6 +31,7 @@ namespace GlobalGrub.Controllers
         }
 
         // GET: Categories/Details/5
+        [AllowAnonymous] // allow this method public (non authenticated and authorized)
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Categories == null)
