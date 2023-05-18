@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GlobalGrub.Controllers
 {
-    [Authorize] // make the whole controller privateto (need authentication to access)
+    [Authorize(Roles = "Administrator")] // make the whole controller privateto (need authentication and authorization of Administrator to access)
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
