@@ -1,6 +1,7 @@
 using GlobalGrub.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,18 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>() // now enable Role Management for Authorization - not on by default
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+// enable Google Auth
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        // access Google Auth section of appseatings
+        IConfigurationSection googleAuth = Configuration.GetSection("Authentication:Google");
+
+        // read GoogleAPI Key values from config section and set as options
+        options.ClientId = googleAuth["ClientId"];
+        options.ClientSecret = googleAuth["ClientSecret"];
+    });
 
 var app = builder.Build();
 
