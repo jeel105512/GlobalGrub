@@ -30,6 +30,12 @@ builder.Services.AddAuthentication()
 
 var app = builder.Build();
 
+// session support - don't put at bottom if you want it to work!
+app.UseSession();
+
+// session support
+builder.Services.AddSession();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

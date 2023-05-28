@@ -26,6 +26,6 @@ namespace GlobalGrub.Models
 
 
         // child reference
-        public List<Product> Products { get; set; }
+        public List<Product>? Products { get; set; }
     }
 }

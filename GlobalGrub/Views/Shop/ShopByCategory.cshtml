@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GlobalGrub.Models.Product>;
+
+@{ViewData["Title"] = "Shop our Store";}
+
+<h1>Shop for: @ViewBag.Category</h1>
+
+<section class="row card-group">
+    @foreach(var product in Model)
+    {
+        <div class="col-sm-6 col-lg-4 mb-3">
+            <div class="card mb-3 text-center h-100">
+                <div class="card-body">
+                    <h5>@product.Name;</h5>
+                    <h6>@String.Format("{0:c}", product.Price)</h6>
+                    <h6>Weight: @product.Weight</h6>
+                    @if(product.Photo != null)
+                    {
+                        <img src="~/img/products/@product.Photo" alt="Product Pic" class="thumb" />
+                    }   
+                    else
+                    {
+                        <img src="~/img/products/placeholder.png" alt="Product Pic" class="thumb" />
+                    }
+                    <form method="post" action="/Shop/AddToCart">
+                        <input type="hidden" name="ProductId" value="@product.ProductId" />
+                        <fieldset class="form-group">
+                            <label for="Quantity" class="control-label">Quantity: </label>
+                            <input name="Quantity" type="number" value="1" min="1" max="999" required class="input-small" />
+                        </fieldset>
+                        <button class="btn btn-primary">Add To Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</section>

@@ -21,3 +21,8 @@ body {
 .thumb{
     width: 75px;
 }
+
+.input-small{
+    width: 75px;
+    margin-top: 7px;
+}
