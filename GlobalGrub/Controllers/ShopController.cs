@@ -1,5 +1,6 @@
 ﻿using GlobalGrub.Data;
 using GlobalGrub.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata.Ecma335;
@@ -117,13 +118,37 @@ namespace GlobalGrub.Controllers
             return View(cartItems);
         }
 
-        // GET: /Shop/RemoveFromCart
+        // GET: /Shop/RemoveFromCart/5
         public IActionResult RemoveFromCart(int id) { 
             var cartItem = _context.CartItems.Find(id);
             _context.CartItems.Remove(cartItem);
             _context.SaveChanges();
             return RedirectToAction("Cart");
 
+        }
+
+        // GET: /Shop/Checkout
+        [Authorize]
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        // POST: /Shop/Checkout
+        [Authorize]
+        [HttpPost]
+        public IActionResult Checkout([Bind("FirtName", "LastName", "Address", "City", "Province", "PostalCode", "Phone")] Order order)
+        {
+            // auto-fill total, date, user
+            order.OrderDate = DateTime.Now;
+            order.UserId = User.Identity.Name;
+            //order.Total = (from c in _context.CartItems
+            //               where c.UserId == order.UserId
+            //               select c.Quantity * c.Price).Sum();
+            // save order to session so we can keep it in memory for saving once payment gets completed
+            // using SessionExtensions 3rd party library fo this
+            HttpContext.Session.SetObject("Order", order);
+            return RedirectToAction("Payment");
         }
     }
 }

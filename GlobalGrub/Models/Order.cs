@@ -10,15 +10,18 @@ namespace GlobalGrub.Models
         public int OrderId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please make sure to fill the First Name")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please make sure to fill the Last Name")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
         [Range(0, 9999999)]
         public double Price { get; set; }
 
+        [Display(Name = "Order Date")]
         public DateTime OrderDate{ get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please make sure to fill the Address")]
@@ -31,6 +34,7 @@ namespace GlobalGrub.Models
         public string Province { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please make sure to fill the Postal Code")]
+        [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please make sure to fill the Phone Number")]
